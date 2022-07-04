@@ -13,6 +13,6 @@ Below, you will find our working syllabus for the lab and lecture topics for for
 | 5    | 4: Evolution paper                    | Jan 31: Speciation           | Feb 2: Midterm                 |
 | 6    | 5: Population growth                  | Feb 7: What is Ecology?      | Feb 9: Population Growth       |
 | 7    | 6: Competition/predation/harvesting?  | Feb 14: Harvesting           | Feb 16:  Species Interactions  |
-| 8    | 7: Disease dynamics                   | Feb 21: Disease Dynamics as Population Biology 1 | Feb 23: Disease Dynamics as Population Bbiology 2 |
+| 8    | 7: Disease dynamics                   | Feb 21: Disease Dynamics as Population Biology 1 | Feb 23: Disease Dynamics as Population Biology 2 |
 | 9    | 8: Ecology paper   | Feb 28: Community Assembly & Island Biogeography | Mar 2: Critical Transitions & Conservation Interventions  |
 
