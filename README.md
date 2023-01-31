@@ -11,8 +11,8 @@ Below, you will find our working syllabus for the lab and lecture topics for for
 | 3    | 2: Microevolution                     | Jan 17: Microevolution 3     | Jan 19: Phylogenetics          | 
 | 4    | 3: Phylogenetics                      | Jan 24: Molecular Evolution  | Jan 26: Sexual Selection       | 
 | 5    | 4: Evolution paper                    | Jan 31: Speciation           | Feb 2: Ecology & Population Growth                 |
-| 6    | 5: Population growth                  | Feb 7: Midterm   | Feb 9: Single Species Population Growth & Regulation       |
-| 7    | 6: Competition/predation/harvesting?  | Feb 14: Species Interactions 1            | Feb 16: Species Interactions 2    |
-| 8    | 7: Disease dynamics                   | Feb 21: Disease Dynamics as Population Biology 1 | Feb 23: Disease Dynamics as Population Biology 2 |
+| 6    | 5: Population Growth                  | Feb 7: Midterm   | Feb 9: Single Species Population Growth & Regulation       |
+| 7    | 6: Population Regulation  | Feb 14: Species Interactions 1            | Feb 16: Species Interactions 2    |
+| 8    | 7: Disease Dynamics                   | Feb 21: Disease Dynamics as Population Biology 1 | Feb 23: Disease Dynamics as Population Biology 2 |
 | 9    | 8: Ecology paper   | Feb 28: Community Assembly & Island Biogeography | Mar 2: Critical Transitions & Conservation Interventions  |
 
