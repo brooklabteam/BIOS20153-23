@@ -275,7 +275,7 @@ mean(pop.growth.mada)#1.029
 
 ## Let's make a discrete time population model. We will use a for-loop to project a 
 ## population 100 time-steps, starting with population size of 10, and with a population 
-## growth rate equal to 1.1
+## growth rate equal to 1.02
 
 ## Set up your (a) vector "N" of future population sizes, (b) fill in your initial population size,
 ## and (c) define "lambda", the population growth rate.
