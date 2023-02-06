@@ -676,6 +676,70 @@ ggsave(file = paste0(homewd, "figs/dNdt_logistic.png"),
 
 
 
+#and for harvesting
+library(latex2exp)
+
+harvest_plot  <- ggplot(growth_rate_logistic, 
+                      aes(x = X, y = dXdt)) + 
+  geom_line(size = 2, alpha = 0.5, colour = "black") +
+  scale_x_continuous("N(t), Population size at time t") + 
+  scale_y_continuous("H(t), Harvesting rate at time t") +
+  geom_point(x = 0, y = 0, shape = 1, size = 4) +
+  geom_point(x = 1, y = .2, shape = 1, size = 4) +
+  geom_point(x = 5, y = 0, shape = 16, size = 4) +
+  geom_point(x = 4, y = .2, shape = 16, size = 4) +
+  #geom_point(x = 5/2, y = max(growth_rate_logistic$dXdt), shape = 1, size = 4) +
+  geom_label(x = 5, y = -.04, label="K=5", size=4, label.size=0) +
+  #geom_label(x = 5/2, y = (max(growth_rate_logistic$dXdt)-.05), label=TeX(r"( $N_{MSY} = \frac{K}{2}$ )", output = "character"), parse = T, size=4, label.size=0) +
+  #geom_hline(yintercept = max(growth_rate_logistic$dXdt), linetype=1, color="blue") +
+  geom_hline(yintercept = 0.2, linetype=1, color="blue") +
+  geom_hline(yintercept = 0) + 
+  geom_vline(xintercept = 0) + 
+  theme_bw() + 
+  theme(axis.text=element_text(size=14, face="bold"), axis.title=element_text(size=14, face="bold")) +
+  theme(legend.position = "none")
+show(harvest_plot)
+
+
+ggsave(file = paste0(homewd, "figs/harvest.png"),
+       units="mm",  
+       width=60, 
+       height=45, 
+       scale=2.5, 
+       dpi=300)    
+
+
+
+harvest_plot_MSY  <- ggplot(growth_rate_logistic, 
+                        aes(x = X, y = dXdt)) + 
+  geom_line(size = 2, alpha = 0.5, colour = "black") +
+  scale_x_continuous("N(t), Population size at time t") + 
+  scale_y_continuous("H(t), Harvesting rate at time t") +
+  geom_point(x = 0, y = 0, shape = 1, size = 4) +
+  #geom_point(x = 1, y = .2, shape = 1, size = 4) +
+  geom_point(x = 5, y = 0, shape = 16, size = 4) +
+  #geom_point(x = 4, y = .2, shape = 16, size = 4) +
+  geom_point(x = 5/2, y = max(growth_rate_logistic$dXdt), shape = 1, size = 4) +
+  geom_label(x = 5, y = -.04, label="K=5", size=4, label.size=0) +
+  geom_label(x = 5/2, y = (max(growth_rate_logistic$dXdt)-.05), label=TeX(r"( $N_{MSY} = \frac{K}{2}$ )", output = "character"), parse = T, size=4, label.size=0) +
+  geom_hline(yintercept = max(growth_rate_logistic$dXdt), linetype=1, color="blue") +
+  #geom_hline(yintercept = 0.2, linetype=1, color="blue") +
+  geom_hline(yintercept = 0) + 
+  geom_vline(xintercept = 0) + 
+  theme_bw() + 
+  theme(axis.text=element_text(size=14, face="bold"), axis.title=element_text(size=14, face="bold")) +
+  theme(legend.position = "none")
+show(harvest_plot_MSY)
+
+ggsave(file = paste0(homewd, "figs/harvest_MSY.png"),
+       units="mm",  
+       width=60, 
+       height=45, 
+       scale=2.5, 
+       dpi=300)    
+
+
+
 ###########
 ###########
 #halley
