@@ -684,7 +684,7 @@ harvest_plot  <- ggplot(growth_rate_logistic,
   geom_line(size = 2, alpha = 0.5, colour = "black") +
   scale_x_continuous("N(t), Population size at time t") + 
   scale_y_continuous("H(t), Harvesting rate at time t") +
-  geom_point(x = 0, y = 0, shape = 1, size = 4) +
+  geom_point(x = 0, y = 0, shape = 16, size = 4) +
   geom_point(x = 1, y = .2, shape = 1, size = 4) +
   geom_point(x = 5, y = 0, shape = 16, size = 4) +
   geom_point(x = 4, y = .2, shape = 16, size = 4) +
@@ -715,7 +715,7 @@ harvest_plot_MSY  <- ggplot(growth_rate_logistic,
   geom_line(size = 2, alpha = 0.5, colour = "black") +
   scale_x_continuous("N(t), Population size at time t") + 
   scale_y_continuous("H(t), Harvesting rate at time t") +
-  geom_point(x = 0, y = 0, shape = 1, size = 4) +
+  geom_point(x = 0, y = 0, shape = 16, size = 4) +
   #geom_point(x = 1, y = .2, shape = 1, size = 4) +
   geom_point(x = 5, y = 0, shape = 16, size = 4) +
   #geom_point(x = 4, y = .2, shape = 16, size = 4) +
