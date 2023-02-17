@@ -1,0 +1,50 @@
+---
+title: ""
+output: pdf_document
+date: ""
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Hi Zizai,
+
+Thanks for the note and the interest. You are correct about that $\alpha_{12}$ and $\alpha_{21}$ need not both be < 1 to allow for possible coexistence, and, likewise that $\alpha_{12}$ and $\alpha_{21}$ need not both be > 1 to allow for precedence. Rather, it is their respective products that should meet these terms. Some summary thoughts here...
+
+### General rules
+
+For coexistence to be possible, we stated that the system must satisfy the conditions that $\frac{K_1}{\alpha_{12}}>K_2$ and $\frac{K_2}{\alpha_{21}}>K_1$. Rearranging, it then follows that $\alpha_{12} \alpha_{21}<1$.
+
+For precedence (e.g. winner determined by starting conditions) to occur, we instead stated that the system must satisfy the conditions that $\frac{K_1}{\alpha_{12}}<K_2$ and $\frac{K_2}{\alpha_{21}}<K_1$. Rearranging, it then follows that $\alpha_{12} \alpha_{21}>1$.
+
+This product of $\alpha_{12}$ and $\alpha_{21}$ is what I meant by the strength of interspecific interactions. 
+
+### Intra- vs. Inter-species interactions
+
+It is possible to quantify intra- vs. interspecies interactions more explicitly by representing $A_{11}$ and  $A_{22}$ as the strength of each species' effect on itself, where $A_{11}= \frac{r_1}{K_1}$ and $A_{22}=\frac{r_2}{K_2}$.
+
+Correspondingly, we can then represent $A_{12}$ and  $A_{21}$ as the strength of each species' effect on each other, where $A_{12}= \frac{r_1\alpha_{12}}{K_1}$ and $A_{21}=\frac{r_2\alpha_{21}}{K_2}$.
+
+Under the conditions for stable coexistence listed above ($\frac{K_1}{\alpha_{12}}>K_2$ and $\frac{K_2}{\alpha_{21}}>K_1$), we see that the following must be satisfied: $A_{12}A_{21}<A_{11}A_{22}$. Thus, the strength of intraspecific interactions is greater than the strength of interspecific interactions.
+
+### Your examples
+
+The examples you provided actually correspond not to coexistence or precedence but to case 3 from the lecture, in which one species goes extinct while the other settles to carrying capacity. 
+
+You first suggested $K_1 = 10; K_2 =100; \alpha_{12}=\alpha_{21} = 0.5$. This satisfies the conditions $\frac{K_1}{\alpha_{12}}<K_2$ and $\frac{K_2}{\alpha_{21}}>K_1$, whereby species 2 always wins.
+
+You next suggested $K_1 = 10; K_2 =100; \alpha_{12}=\alpha_{21} = 2$. This still satisfies the conditions $\frac{K_1}{\alpha_{12}}<K_2$ and $\frac{K_2}{\alpha_{21}}>K_1$, so again, species 2 always wins. If you plot the nullclines for both of these examples, they do not overlap.
+
+### My examples
+
+A more relevant example for case 1 would be the following conditions for coexistence: $K_1 = 10; K_2 = 15; \alpha_{12}=0.5; \alpha_{21} = 1.2$. The conditions for coexistence are satisfied: $\frac{K_1}{\alpha_{12}}>K_2$ and $\frac{K_2}{\alpha_{21}}>K_1$. You are correct that $\alpha_{21}>1$, but, as stated above, $\alpha_{12} \alpha_{21}<1$.
+
+Similarly, in case 4 (precedence), try: $K_1 = 10; K_2 = 22; \alpha_{12}=0.5; \alpha_{21} = 11$. Here, the conditions for unstable coexistence are met: $\frac{K_1}{\alpha_{12}}<K_2$ and $\frac{K_2}{\alpha_{21}}<K_1$ even though $\alpha_{12}<1$. However, as stated above, $\alpha_{12} \alpha_{21}>1$.
+
+### Close
+
+I hope that helps! I'll make a few points of clarification in class on Tuesday.
+
+Cheers,
+Cara
