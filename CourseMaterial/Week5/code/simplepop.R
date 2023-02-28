@@ -435,8 +435,28 @@ logistic_growth <- function(time, state, params){
     
   show(pl_logistic)
   
+#and with just one
+  
+  pl_logistic_single <- ggplot(subset(m, K==10)) + 
+    geom_line(aes(x = time, y = value, color=K),size = 2, alpha = 0.7) + 
+    scale_color_manual(values="black")+
+    scale_x_continuous("Time t") + 
+    scale_y_continuous("N(t)", limits = c(0, NA)) +
+    geom_hline(yintercept = 10, linetype = 2, colour = "black") + 
+    theme_bw() + 
+    theme(axis.text=element_text(size=14, face="bold"), 
+          panel.grid = element_blank(),
+          axis.title=element_text(size=14, face="bold"),
+          legend.position = c(.8,.2)) 
 
-
+  
+  ggsave(file = paste0(homewd, "figs/logistic_single.png"),
+         plot= pl_logistic_single,
+         units="mm",  
+         width=60, 
+         height=45, 
+         scale=2.5, 
+         dpi=300)
 
   ################ 
   
