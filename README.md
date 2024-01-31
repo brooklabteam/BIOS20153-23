@@ -1,18 +1,18 @@
-# BIOS20153-23
+# BIOS20153-24
 
-Welcome to BIOS20153-Winter 2023!
+Welcome to BIOS20153-Winter 2024!
 
 Below, you will find our working syllabus for the lab and lecture topics for for the course. 
 
-| Week | Mon/Tues Lab                          | Tues Lecture                 | Thurs Lecture                  | 
-| ---- | -----------                           | -----------                  | -----------                    |
-| 1    | 0: Intro to R                         | Jan 3: Evolution History     | Jan 5: Evolution Evidence      | 
-| 2    | 1: Hardy-Weinberg                     | Jan 10: Microevolution 1     | Jan 12: Microevolution 2       | 
-| 3    | 2: Microevolution                     | Jan 17: Microevolution 3     | Jan 19: Phylogenetics          | 
-| 4    | 3: Phylogenetics                      | Jan 24: Molecular Evolution  | Jan 26: Sexual Selection       | 
-| 5    | 4: Evolution paper                    | Jan 31: Speciation           | Feb 2: Ecology & Population Growth                 |
-| 6    | 5: Population Growth                  | Feb 7: Midterm   | Feb 9: Single Species Population Growth & Regulation       |
-| 7    | 6: Population Regulation  | Feb 14: Species Interactions 1            | Feb 16: Species Interactions 2    |
-| 8    | 7: Disease Dynamics                   | Feb 21: Disease Dynamics as Population Biology 1 | Feb 23: Disease Dynamics as Population Biology 2 |
-| 9    | 8: Ecology paper   | Feb 28: Community Assembly & Island Biogeography | Mar 2: Critical Transitions & Conservation Interventions  |
+| Week | Mon/Tues Lab                                 | Tues Lecture                 | Thurs Lecture                  | 
+| ---- | -----------                                  | -----------                  | -----------                    |
+| 1    | --                                           |     --                       | Jan 4: Evolution History      | 
+| 2    | 1: Intro R                                   | Jan 9: Mutation and Variation| Jan 11: Hardy-Weinberg       | 
+| 3    | 2: Hardy-Weinberg                            | Jan 16: Migration and Drift  | Jan 18: Natural Selection          | 
+| 4    | 3: Microevolution                            | Jan 23: Phylogenetics  | Jan 25: Molecular Evolution & Sexual Selection       | 
+| 5    | 4: Phylogenetics                             | Jan 30: Kin Selection, Speciation| Feb 1: Ecology & Population Growth                 |
+| 6    | 5: Evolution paper                           | Feb 6: Single Species Population Growth & Regulation   | Feb 8: Midterm        |
+| 7    | 6: Population Growth                         | Feb 13: Species Interactions 1            | Feb 15: Species Interactions 2    |
+| 8    | 7: Population Regulation                     | Feb 20: Disease Dynamics as Population Biology 1 | Feb 22: Disease Dynamics as Population Biology 2 |
+| 9    | 8: Disease Dynamics                          | Feb 27: Community Assembly & Island Biogeography | Feb 29: Critical Transitions & Conservation Interventions  |
 
