@@ -45,7 +45,7 @@ title(main="your names") ###################### change to YOUR NAMES
 #########
 #The first phase plot lines -
 #########
-plot(out[,2],out[,3],type="l",xlab="Susceptible Hosts",ylab="Infected Hosts");
+plot(out[,2],out[,3],type="l",xlab="Fraction Susceptible Hosts",ylab="Fraction Infected Hosts");
 abline(v=(gamma/beta),lty=2)
 
 ### Stop the first run here and answer questions 2 & 3
@@ -61,5 +61,4 @@ y0 = c(S=SStart,I=I0Start);  # make this  starting point
 t2 = seq(from=0,to=EndTime,by=0.1); # run for chosen time interval
 out = ode(y=y0,times=t2,func=SIR,parms=p2);  # solve the equations from this start point
  lines(out[,2],out[,3]);  # add the line to the figure
-
 
