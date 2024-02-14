@@ -280,6 +280,6 @@ p7 <- plotresults(out, pars, plotDYN = FALSE, plotEQ = FALSE)
 ggsave(file = paste0(homewd, "/figs/blanknullclines.png"),
        units="mm",  
        width=50, 
-       height=55, 
+       height=45, 
        scale=2, 
        dpi=300)
