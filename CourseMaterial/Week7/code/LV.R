@@ -2,6 +2,9 @@ require(deSolve)
 require(ggplot2)
 require(scales)
 
+homewd = paste0(getwd(), "/CourseMaterial/Week7/code/")
+setwd(homewd)
+
 LotkaVolterra <- function(time, state, params){
   # state:
   # x1, x2
@@ -46,26 +49,237 @@ plotresults <- function(out, pars, plotEQ = TRUE, plotN1 = TRUE, plotN2 = TRUE, 
     pl <- pl + geom_point(size = 4, colour = NA)
   }
   if (plotN1 == TRUE){
-    pl <- pl + geom_line(data = line1, aes(x1, x2), linetype = "44")
+    pl <- pl + geom_line(data = line1, aes(x1, x2), color="cornflowerblue") 
   }
   if (plotN2 == TRUE){
-    pl <- pl + geom_line(data = line2, aes(x1, x2), linetype = "13" )
+    pl <- pl + geom_line(data = line2, aes(x1, x2), color="tomato")
   }
   if (plotDYN == TRUE){
     pl <- pl + geom_point(data = out, aes(x1, x2, colour =time)) + 
-      scale_colour_gradient2(low = muted("blue"), mid = muted("red"),
-                             high = muted("green"))
+      scale_color_gradient(low="yellow", high = "red", trans="log10")
+     
+      #scale_colour_gradient2(low = muted("blue"), mid = muted("red"),
+       #                      high = muted("green"))
   }
-  pl <- pl + theme_bw() + theme(axis.text = element_text(size = 14, face = "bold"), axis.title = element_text(size=14, face="bold")) +
-    theme(legend.position = "bottom") 
+  pl <- pl + theme_bw() + theme(axis.text = element_text(size = 14, face = "bold"), axis.title.x = element_text(size=14, face="bold", color="cornflowerblue"), axis.title.y = element_text(size=14, face="bold", color="tomato")) +
+    theme(legend.position = "bottom") + theme(plot.margin = unit(c(.3,.3,.3,.3), "lines"))
   return(pl)
 }
 # 
 # # test competition
-# r <- c(0.5,0.5)
-# A <- matrix(c(1.4, 2.7, 1.6, 2.1), 2, 2, byrow = TRUE)
-# pars <- list(r = r, A = A)
-# x0 <- c(x1 = 0.1, x2 = 0.3)
-# times <- seq(0, 2000, by = 0.1)
-# out <- as.data.frame(ode(x0, times, LotkaVolterra, pars))
-# out[out < 0] <- 0
+
+#first, coexistence guaranteed!
+
+r <- c(0.5,0.5)
+A <- matrix(c(2.5,1.4, 2.1, 1.6), 2, 2, byrow = TRUE)
+pars <- list(r = r, A = A)
+x0 <- c(x1 = 0.2, x2 = 0.1)
+times <- seq(0, 2000, by = 0.1)
+out <- as.data.frame(ode(x0, times, LotkaVolterra, pars))
+out[out < 0] <- 0
+
+head(out)
+
+p1a <- plotresults(out, pars)
+ts.long <- melt(out, id.vars  = "time", variable.name = "species", value.name = "proportion")
+
+p1b <- ggplot(ts.long) +
+  geom_line(aes(x=time, y=proportion, color=species), size=1) +theme_bw() +
+  scale_color_manual(values=colz) + ylim(c(0,.4)) +
+  theme(plot.margin = unit(c(.3,.3,4,.3), "lines"), legend.position = c(.8,.8),
+        axis.title = element_text(size=14), axis.text = element_text(size=12))
+#print(p1b)
+
+p1 <- cowplot::plot_grid(p1a, p1b)
+print(p1)
+
+ggsave(file = paste0(homewd, "/figs/stable-coexistence.png"),
+       units="mm",  
+       width=90, 
+       height=55, 
+       scale=2, 
+       dpi=300)
+
+# next, spp 1 always outcompetes spp 2
+A <- matrix(c(2.5,1.4, 2.6, 1.6), 2, 2, byrow = TRUE)
+pars <- list(r = r, A = A)
+x0 <- c(x1 = 0.2, x2 = 0.1)
+times <- seq(0, 2000, by = 0.1)
+out <- as.data.frame(ode(x0, times, LotkaVolterra, pars))
+out[out < 0] <- 0
+
+head(out)
+
+p2a <- plotresults(out, pars)
+ts.long <- melt(out, id.vars  = "time", variable.name = "species", value.name = "proportion")
+
+p2b <- ggplot(ts.long) +
+  geom_line(aes(x=time, y=proportion, color=species), size=1) +theme_bw() +
+  scale_color_manual(values=colz) + ylim(c(0,.4)) +
+  theme(plot.margin = unit(c(.3,.3,4,.3), "lines"), legend.position = c(.8,.8),
+        axis.title = element_text(size=14), axis.text = element_text(size=12))
+print(p2b)
+
+
+p2b <- ggplot(ts.long) +
+  geom_line(aes(x=time, y=proportion, color=species), size=1) +theme_bw() +
+  scale_color_manual(values=colz) + ylim(c(0,.4)) +
+  theme(plot.margin = unit(c(.3,.3,4,.3), "lines"), legend.position = c(.8,.8),
+        axis.title = element_text(size=14), axis.text = element_text(size=12))
+
+
+p2 <- cowplot::plot_grid(p2a, p2b)
+print(p2)
+
+ggsave(file = paste0(homewd, "/figs/sppx1-wins.png"),
+       units="mm",  
+       width=90, 
+       height=55, 
+       scale=2, 
+       dpi=300)
+
+
+#spp 2 always outcompetes spp 1
+A <- matrix(c(2.5,1.6, 2.1, 1.4), 2, 2, byrow = TRUE)
+pars <- list(r = r, A = A)
+x0 <- c(x1 = 0.2, x2 = 0.1)
+times <- seq(0, 2000, by = 0.1)
+out <- as.data.frame(ode(x0, times, LotkaVolterra, pars))
+out[out < 0] <- 0
+
+
+p3a <- plotresults(out, pars)
+ts.long <- melt(out, id.vars  = "time", variable.name = "species", value.name = "proportion")
+
+p3b <- ggplot(ts.long) +
+  geom_line(aes(x=time, y=proportion, color=species), size=1) +theme_bw() +
+  scale_color_manual(values=colz) + ylim(c(0,.4)) +
+  theme(plot.margin = unit(c(.3,.3,4,.3), "lines"), legend.position = c(.8,.8),
+        axis.title = element_text(size=14), axis.text = element_text(size=12))
+
+
+p3 <- cowplot::plot_grid(p3a, p3b)
+print(p3)
+
+ggsave(file = paste0(homewd, "/figs/sppx2-wins.png"),
+       units="mm",  
+       width=90, 
+       height=55, 
+       scale=2, 
+       dpi=300)
+
+
+#finally
+#outcome depends on initial conditions: here, x2 wins
+
+r <- c(0.5,0.5)
+A <- matrix(c(1.4, 2.7, 1.6, 2.1), 2, 2, byrow = TRUE)
+pars <- list(r = r, A = A)
+x0 <- c(x1 = 0.1, x2 = 0.3)
+times <- seq(0, 2000, by = 0.1)
+out <- as.data.frame(ode(x0, times, LotkaVolterra, pars))
+out[out < 0] <- 0
+
+p4a<- plotresults(out, pars)
+
+
+
+ts.long <- melt(out, id.vars  = "time", variable.name = "species", value.name = "proportion")
+colz =c('x1'="cornflowerblue", 'x2'="tomato")
+p4b <- ggplot(ts.long) +
+  geom_line(aes(x=time, y=proportion, color=species), size=1) +theme_bw() +
+  scale_color_manual(values=colz) + ylim(c(0,.4)) +
+  theme(plot.margin = unit(c(.3,.3,4,.3), "lines"), legend.position = c(.8,.8),
+        axis.title = element_text(size=14), axis.text = element_text(size=12))
+
+
+p4 <- cowplot::plot_grid(p4a, p4b)
+print(p4)
+
+ggsave(file = paste0(homewd, "/figs/precedence-x2-wins.png"),
+       units="mm",  
+       width=90, 
+       height=55, 
+       scale=2, 
+       dpi=300)
+
+
+#and here x1 wins
+x0 <- c(x1 = 0.35, x2 = 0.1)
+out <- as.data.frame(ode(x0, times, LotkaVolterra, pars))
+out[out < 0] <- 0
+
+p5a<- plotresults(out, pars)
+head(out)
+ts.long <- melt(out, id.vars  = "time", variable.name = "species", value.name = "proportion")
+p5b <- ggplot(ts.long) +
+  geom_line(aes(x=time, y=proportion, color=species), size=1) +theme_bw() +
+  scale_color_manual(values=colz) + ylim(c(0,.4)) +
+  theme(plot.margin = unit(c(.3,.3,4,.3), "lines"), legend.position = c(.8,.8),
+        axis.title = element_text(size=14), axis.text = element_text(size=12))
+
+
+p5 <- cowplot::plot_grid(p5a, p5b)
+print(p5)
+
+ggsave(file = paste0(homewd, "/figs/precedence-x1-wins.png"),
+       units="mm",  
+       width=90, 
+       height=55, 
+       scale=2, 
+       dpi=300)
+
+
+
+
+#and here, coexistence
+x0 <- c(x1 = 0.3, x2 = 0.1)
+times <- seq(0, 2000, by = 0.1)
+out <- as.data.frame(ode(x0, times, LotkaVolterra, pars))
+out[out < 0] <- 0
+
+p6a <- plotresults(out, pars)
+ts.long <- melt(out, id.vars  = "time", variable.name = "species", value.name = "proportion")
+
+
+p6b <- ggplot(ts.long) +
+  geom_line(aes(x=time, y=proportion, color=species), size=1) +theme_bw() +
+  scale_color_manual(values=colz) + ylim(c(0,.4)) +
+  theme(plot.margin = unit(c(.3,.3,4,.3), "lines"), legend.position = c(.8,.8),
+        axis.title = element_text(size=14), axis.text = element_text(size=12))
+
+
+p6 <- cowplot::plot_grid(p6a, p6b)
+print(p6)
+
+ggsave(file = paste0(homewd, "/figs/precedence-coexistence.png"),
+       units="mm",  
+       width=90, 
+       height=55, 
+       scale=2, 
+       dpi=300)
+
+
+
+#and example for quiz Q
+
+
+
+r <- c(0.5,0.5)
+A <- matrix(c(2.5,1.4, 2.1, 1.6), 2, 2, byrow = TRUE)
+pars <- list(r = r, A = A)
+x0 <- c(x1 = 0.2, x2 = 0.1)
+times <- seq(0, 2000, by = 0.1)
+out <- as.data.frame(ode(x0, times, LotkaVolterra, pars))
+out[out < 0] <- 0
+
+head(out)
+
+p7 <- plotresults(out, pars, plotDYN = FALSE, plotEQ = FALSE)
+
+ggsave(file = paste0(homewd, "/figs/blanknullclines.png"),
+       units="mm",  
+       width=50, 
+       height=55, 
+       scale=2, 
+       dpi=300)
