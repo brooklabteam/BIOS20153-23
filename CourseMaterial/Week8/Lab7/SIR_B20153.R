@@ -48,6 +48,9 @@ title(main="your names") ###################### change to YOUR NAMES
 plot(out[,2],out[,3],type="l",xlab="Fraction Susceptible Hosts",ylab="Fraction Infected Hosts");
 abline(v=(gamma/beta),lty=2)
 
+.4*.25
+
+
 ### Stop the first run here and answer questions 2 & 3
 
 
