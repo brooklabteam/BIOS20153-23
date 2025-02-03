@@ -14,5 +14,5 @@ Below, you will find our working syllabus for the lab and lecture topics for for
 | 6    | 5: Evolution paper                           | Feb 11: Species Interactions 1 | Feb 13: Midterm        |
 | 7    | 6: Population Growth                         | Feb 18: Species Interactions 2 | Feb 20: Disease Dynamics as Population Biology 1
 | 8    | 7: Population Regulation                     | Feb 25: Disease Dynamics as Population Biology 2 | Feb 27: Community Assembly & Island Biogeography |
-| 9    | 8: Disease Dynamics                          |  Mar 4: Conservation Biology  | Mar 6: TBA
+| 9    | 8: Disease Dynamics                          |  Mar 4: Conservation Biology 1  | Mar 6: Conservation Biology 2
 
