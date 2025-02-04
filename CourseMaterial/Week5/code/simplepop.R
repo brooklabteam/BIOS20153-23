@@ -695,6 +695,29 @@ ggsave(file = paste0(homewd, "figs/dNdt_logistic.png"),
        dpi=300)    
 
 
+#and with H on the y - axis
+eq_logistic2 <- ggplot(growth_rate_logistic, 
+                      aes(x = X, y = dXdt)) + 
+  geom_line(size = 2, alpha = 0.5, colour = "black") +
+  scale_x_continuous("N(t)", breaks = c(2,4,6), labels = c(200,400,600)) + 
+  geom_point(x = 0, y = 0, shape = 1, size = 4) +
+  geom_point(x = 5, y = 0, shape = 1, size = 4) +
+  geom_point(x = 3, y = .3, shape = 16, size = 4) +
+  geom_hline(yintercept = 0) + 
+  geom_vline(xintercept = 0) + 
+  scale_y_continuous(breaks = c(-.2,-.1,0,.1,.2,.3), labels = c(-20,-10,0,10,20,30), name = "H(t)") +
+  theme_bw() + 
+  theme(axis.text=element_text(size=14, face="bold"), axis.title=element_text(size=14, face="bold")) +
+  theme(legend.position = "none")
+show(eq_logistic2)
+
+
+ggsave(file = paste0(homewd, "figs/harvest-test.png"),
+       units="mm",  
+       width=60, 
+       height=45, 
+       scale=2.5, 
+       dpi=300) 
 
 #and for harvesting
 library(latex2exp)
