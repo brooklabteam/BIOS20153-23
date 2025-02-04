@@ -695,6 +695,58 @@ ggsave(file = paste0(homewd, "figs/dNdt_logistic.png"),
        dpi=300)    
 
 
+#and for question
+Xs <- seq(0, 1 * 6.1, length.out = 100)
+growth_rate_logistic <- data.frame(X = Xs, dXdt = 0.25 * Xs * (1 - Xs / 5))
+eq_logistic_poll <- ggplot(growth_rate_logistic, 
+                      aes(x = X, y = dXdt)) + 
+  geom_line(size = 2, alpha = 0.5, colour = "black") +
+  scale_x_continuous("N(t)") + 
+  scale_y_continuous("dN(t)/dt") +
+  geom_point(x = 0, y = 0, shape = 1, size = 4) +
+  geom_point(x = 5, y = 0, shape = 1, size = 4) +
+  geom_point(x = 4, y = .2, shape = 16, size = 4) +
+  geom_hline(yintercept = 0) + 
+  geom_vline(xintercept = 0) + 
+  theme_bw() + 
+  theme(axis.text=element_text(size=14, face="bold"), axis.title=element_text(size=14, face="bold")) +
+  theme(legend.position = "none")
+show(eq_logistic_poll)
+
+
+ggsave(file = paste0(homewd, "figs/dNdt_logistic_poll_Q.png"),
+       units="mm",  
+       width=60, 
+       height=45, 
+       scale=2.5, 
+       dpi=300)    
+
+
+eq_logistic_poll2 <- ggplot(growth_rate_logistic, 
+                           aes(x = X, y = dXdt)) + 
+  geom_line(size = 2, alpha = 0.5, colour = "black") +
+  scale_x_continuous("N(t)") + 
+  scale_y_continuous("dN(t)/dt") +
+  geom_point(x = 0, y = 0, shape = 1, size = 4) +
+  geom_point(x = 5, y = 0, shape = 1, size = 4) +
+  geom_point(x = 6, y = -.3, shape = 16, size = 4) +
+  geom_hline(yintercept = 0) + 
+  geom_vline(xintercept = 0) + 
+  theme_bw() + 
+  theme(axis.text=element_text(size=14, face="bold"), axis.title=element_text(size=14, face="bold")) +
+  theme(legend.position = "none")
+show(eq_logistic_poll2)
+
+
+ggsave(file = paste0(homewd, "figs/dNdt_logistic_poll_Q2.png"),
+       units="mm",  
+       width=60, 
+       height=45, 
+       scale=2.5, 
+       dpi=300)    
+
+
+
 #and with H on the y - axis
 eq_logistic2 <- ggplot(growth_rate_logistic, 
                       aes(x = X, y = dXdt)) + 
