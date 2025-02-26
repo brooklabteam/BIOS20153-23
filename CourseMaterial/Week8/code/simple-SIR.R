@@ -845,7 +845,7 @@ out.decimal = as.data.frame(lsoda(y = xstart, times = times, func = simple.SIR, 
 
 
 
-p1 <- ggplot(data=out.decimal) + 
+p1 <- ggplot(data=subset(out.decimal, time<= 200)) + 
   geom_line(aes(x=time, y=S), color="green", size=1) +
   geom_line(aes(x=time, y=I), color="tomato", size=1) +
   geom_line(aes(x=time, y=R), color="cornflowerblue", size=1) +#scale_color_manual(values=colz) + ylab('proportion') + theme_bw() + xlab("time") +# ylab('proportion')
@@ -867,7 +867,7 @@ ggsave(file = paste0(homewd, "/CourseMaterial/Week8/code/figs/simplestSIRtimeser
        scale=3, 
        dpi=300)
 
-p2 <- ggplot(data=out.decimal) + geom_line(aes(x=S, y=I, color=time), size=1) + #scale_color_manual(values=colz) + ylab('proportion') + theme_bw() + xlab("time") +# ylab('proportion')
+p2 <- ggplot(data=subset(out.decimal, time<= 200)) + geom_line(aes(x=S, y=I, color=time), size=1) + #scale_color_manual(values=colz) + ylab('proportion') + theme_bw() + xlab("time") +# ylab('proportion')
   scale_color_gradient(low="yellow", high="red", trans="log10") + theme_bw()+
   ylab("proportion infected (I)") + xlab("proportion susceptible (S)") +
   theme(panel.grid = element_blank(), 
@@ -896,7 +896,7 @@ params.b = list(b= 0,#births, per capita per day
                 mu = 0 #natural death rate, deaths per capita, per day)
 )
 
-#params.b$beta/params.b$sigma
+params.b$beta/params.b$sigma
 #R0=7
 
 xstart = c(S = .99, I = .01, R = 0)
@@ -907,7 +907,7 @@ out.decimal = as.data.frame(lsoda(y = xstart, times = times, func = simple.SIR, 
 
 
 
-p1 <- ggplot(data=out.decimal) + 
+p1 <- ggplot(data=subset(out.decimal, time<= 200)) + 
   geom_line(aes(x=time, y=S), color="green", size=1) +
   geom_line(aes(x=time, y=I), color="tomato", size=1) +
   geom_line(aes(x=time, y=R), color="cornflowerblue", size=1) +#scale_color_manual(values=colz) + ylab('proportion') + theme_bw() + xlab("time") +# ylab('proportion')
@@ -929,7 +929,7 @@ ggsave(file = paste0(homewd, "/CourseMaterial/Week8/code/figs/simplestSIRtimeser
        scale=3, 
        dpi=300)
 
-p2 <- ggplot(data=out.decimal) + geom_line(aes(x=S, y=I, color=time), size=1) + #scale_color_manual(values=colz) + ylab('proportion') + theme_bw() + xlab("time") +# ylab('proportion')
+p2 <- ggplot(data=subset(out.decimal, time<= 200)) + geom_line(aes(x=S, y=I, color=time), size=1) + #scale_color_manual(values=colz) + ylab('proportion') + theme_bw() + xlab("time") +# ylab('proportion')
   scale_color_gradient(low="yellow", high="red", trans="log10") + theme_bw()+
   ylab("proportion infected (I)") + xlab("proportion susceptible (S)") +
   theme(panel.grid = element_blank(), 
@@ -938,7 +938,7 @@ p2 <- ggplot(data=out.decimal) + geom_line(aes(x=S, y=I, color=time), size=1) + 
         legend.position.inside = c(.8,.85),
         legend.direction = "horizontal",
         axis.text = element_text(size=14), strip.background = element_blank(),
-        strip.text = element_blank()) + coord_cartesian(xlim=c(0,1), ylim=c(0,.5))
+        strip.text = element_blank()) + coord_cartesian(xlim=c(0,1), ylim=c(0,1))
 
 print(p2)
 
