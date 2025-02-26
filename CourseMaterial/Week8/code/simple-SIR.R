@@ -802,6 +802,154 @@ ggsave(file = "simpleSIR_R.pdf",
        #limitsize = F,
        scale=2)#, 
 
+#and the phase portraits
+rm(list=ls())
+homewd="/Users/carabrook/Developer/BIOS20153-23"
+
+simple.SIR <- function(t,x,parms){
+  
+  S = x[1]
+  I = x[2]
+  R = x[3]
+  
+  
+  # The with() function gives access to the named values of parms within the
+  # local environment created by the function
+  with(as.list(parms),{
+
+    dSdt <- parms$b*(S+I+R)-parms$beta*S*I-parms$mu*S
+    dIdt <- parms$beta*S*I - parms$mu*I - parms$sigma*I
+    dRdt <- parms$sigma*I - parms$mu*R
+    
+    list(c(dSdt,dIdt,dRdt))
+  })
+}
+
+
+
+params.b = list(b= 0,#births, per capita per day
+                beta = .2,#per capita infectious contacts per day for an infected individual
+                sigma = 1/14, #recovery rate, 1/duration of infection (in days). here 1/14, like measles
+                mu = .01 #natural death rate, deaths per capita, per day)
+)
+
+
+R0 = params.b$beta/params.b$sigma
+R0 #5.6
+xstart = c(S = .99, I = .01, R = 0)
+
+times = seq(1, 365*1, 1) #1 years in days
+
+out.decimal = as.data.frame(lsoda(y = xstart, times = times, func = simple.SIR, parms = params.b))
+
+
+
+
+p1 <- ggplot(data=out.decimal) + 
+  geom_line(aes(x=time, y=S), color="green", size=1) +
+  geom_line(aes(x=time, y=I), color="tomato", size=1) +
+  geom_line(aes(x=time, y=R), color="cornflowerblue", size=1) +#scale_color_manual(values=colz) + ylab('proportion') + theme_bw() + xlab("time") +# ylab('proportion')
+  ylab("proportion") + xlab("time") + theme_bw() +
+  theme(panel.grid = element_blank(), 
+        axis.title = element_text(size=18), 
+        legend.position = "bottom",
+        legend.direction = "horizontal",
+        axis.text = element_text(size=14), strip.background = element_blank(),
+        strip.text = element_blank()) + coord_cartesian(ylim=c(0,1))
+
+print(p1)
+
+
+ggsave(file = paste0(homewd, "/CourseMaterial/Week8/code/figs/simplestSIRtimeseries.pdf"),
+       units="mm",  
+       width=50, 
+       height=40, 
+       scale=3, 
+       dpi=300)
+
+p2 <- ggplot(data=out.decimal) + geom_line(aes(x=S, y=I, color=time), size=1) + #scale_color_manual(values=colz) + ylab('proportion') + theme_bw() + xlab("time") +# ylab('proportion')
+  scale_color_gradient(low="yellow", high="red", trans="log10") + theme_bw()+
+  ylab("proportion infected (I)") + xlab("proportion susceptible (S)") +
+  theme(panel.grid = element_blank(), 
+        axis.title = element_text(size=18), 
+        legend.position = "inside",
+        legend.position.inside = c(.8,.85),
+        legend.direction = "horizontal",
+        axis.text = element_text(size=14), strip.background = element_blank(),
+        strip.text = element_blank()) + coord_cartesian(xlim=c(0,1), ylim=c(0,1))
+
+print(p2)
+
+ggsave(file = paste0(homewd, "/CourseMaterial/Week8/code/figs/simplestSIRphaseplane.pdf"),
+       units="mm",  
+       width=50, 
+       height=40, 
+       scale=3, 
+       dpi=300)
+
+
+#and higher R0
+
+params.b = list(b= 0,#births, per capita per day
+                beta = .5,#per capita infectious contacts per day for an infected individual
+                sigma = 1/14, #recovery rate, 1/duration of infection (in days). here 1/14, like measles
+                mu = 0 #natural death rate, deaths per capita, per day)
+)
+
+#params.b$beta/params.b$sigma
+#R0=7
+
+xstart = c(S = .99, I = .01, R = 0)
+
+times = seq(1, 365*1, 1) #1 years in days
+
+out.decimal = as.data.frame(lsoda(y = xstart, times = times, func = simple.SIR, parms = params.b))
+
+
+
+p1 <- ggplot(data=out.decimal) + 
+  geom_line(aes(x=time, y=S), color="green", size=1) +
+  geom_line(aes(x=time, y=I), color="tomato", size=1) +
+  geom_line(aes(x=time, y=R), color="cornflowerblue", size=1) +#scale_color_manual(values=colz) + ylab('proportion') + theme_bw() + xlab("time") +# ylab('proportion')
+  ylab("proportion") + xlab("time") + theme_bw() +
+  theme(panel.grid = element_blank(), 
+        axis.title = element_text(size=18), 
+        #legend.position = "bottom",
+        #legend.direction = "horizontal",
+        axis.text = element_text(size=14), strip.background = element_blank(),
+        strip.text = element_blank()) + coord_cartesian(ylim=c(0,1))
+
+print(p1)
+
+
+ggsave(file = paste0(homewd, "/CourseMaterial/Week8/code/figs/simplestSIRtimeseries-higherR0.pdf"),
+       units="mm",  
+       width=50, 
+       height=40, 
+       scale=3, 
+       dpi=300)
+
+p2 <- ggplot(data=out.decimal) + geom_line(aes(x=S, y=I, color=time), size=1) + #scale_color_manual(values=colz) + ylab('proportion') + theme_bw() + xlab("time") +# ylab('proportion')
+  scale_color_gradient(low="yellow", high="red", trans="log10") + theme_bw()+
+  ylab("proportion infected (I)") + xlab("proportion susceptible (S)") +
+  theme(panel.grid = element_blank(), 
+        axis.title = element_text(size=18), 
+        legend.position = "inside",
+        legend.position.inside = c(.8,.85),
+        legend.direction = "horizontal",
+        axis.text = element_text(size=14), strip.background = element_blank(),
+        strip.text = element_blank()) + coord_cartesian(xlim=c(0,1), ylim=c(0,.5))
+
+print(p2)
+
+
+ggsave(file = paste0(homewd, "/CourseMaterial/Week8/code/figs/simplestSIRphaseplane-higherR0.pdf"),
+       units="mm",  
+       width=50, 
+       height=40, 
+       scale=3, 
+       dpi=300)
+
 
 
 
