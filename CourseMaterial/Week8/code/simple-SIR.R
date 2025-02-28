@@ -582,6 +582,26 @@ xstart = c(S = 99, I = 1, R = 0)
 
 times = seq(1, 365*1, 1) #1 years in days
 
+simple.SIR <- function(t,x,parms){
+  
+  S = x[1]
+  I = x[2]
+  R = x[3]
+  
+  
+  # The with() function gives access to the named values of parms within the
+  # local environment created by the function
+  with(as.list(parms),{
+    
+    dSdt <- parms$b*(S+I+R)-parms$beta*S*I-parms$mu*S
+    dIdt <- parms$beta*S*I - parms$mu*I - parms$sigma*I
+    dRdt <- parms$sigma*I - parms$mu*R
+    
+    list(c(dSdt,dIdt,dRdt))
+  })
+}
+
+
 out = as.data.frame(lsoda(y = xstart, times = times, func = simple.SIR, parms = params.b))
 
 out.S = out[,1:2]
@@ -702,6 +722,27 @@ params.b = list(b= 0,#births, per capita per day
 xstart = c(S = 99, I = 1, R = 0)
 
 times = seq(1, 365*1, 1) #1 years in days
+
+
+simple.SIR <- function(t,x,parms){
+  
+  S = x[1]
+  I = x[2]
+  R = x[3]
+  
+  
+  # The with() function gives access to the named values of parms within the
+  # local environment created by the function
+  with(as.list(parms),{
+    
+    dSdt <- parms$b*(S+I+R)-parms$beta*S*I-parms$mu*S
+    dIdt <- parms$beta*S*I - parms$mu*I - parms$sigma*I
+    dRdt <- parms$sigma*I - parms$mu*R
+    
+    list(c(dSdt,dIdt,dRdt))
+  })
+}
+
 
 out = as.data.frame(lsoda(y = xstart, times = times, func = simple.SIR, parms = params.b))
 
@@ -830,7 +871,7 @@ simple.SIR <- function(t,x,parms){
 params.b = list(b= 0,#births, per capita per day
                 beta = .2,#per capita infectious contacts per day for an infected individual
                 sigma = 1/14, #recovery rate, 1/duration of infection (in days). here 1/14, like measles
-                mu = .01 #natural death rate, deaths per capita, per day)
+                mu = .00 #natural death rate, deaths per capita, per day)
 )
 
 
@@ -855,7 +896,9 @@ p1 <- ggplot(data=subset(out.decimal, time<= 200)) +
         legend.position = "bottom",
         legend.direction = "horizontal",
         axis.text = element_text(size=14), strip.background = element_blank(),
-        strip.text = element_blank()) + coord_cartesian(ylim=c(0,1))
+        strip.text = element_blank()) + coord_cartesian(ylim=c(0,1)) +
+  geom_hline(aes(yintercept = 1), linetype=2) +
+  geom_hline(aes(yintercept=0), linetype=2)
 
 print(p1)
 
@@ -904,10 +947,12 @@ xstart = c(S = .99, I = .01, R = 0)
 times = seq(1, 365*1, 1) #1 years in days
 
 out.decimal = as.data.frame(lsoda(y = xstart, times = times, func = simple.SIR, parms = params.b))
+head(out.decimal)
+out.solid = out.decimal 
+out.solid$R[out.solid$R>.99] <- .99
+out.solid$S[out.solid$S<.01] <- .01
 
-
-
-p1 <- ggplot(data=subset(out.decimal, time<= 200)) + 
+p1 <- ggplot(data=subset(out.solid, time<= 200)) + 
   geom_line(aes(x=time, y=S), color="green", size=1) +
   geom_line(aes(x=time, y=I), color="tomato", size=1) +
   geom_line(aes(x=time, y=R), color="cornflowerblue", size=1) +#scale_color_manual(values=colz) + ylab('proportion') + theme_bw() + xlab("time") +# ylab('proportion')
@@ -917,7 +962,9 @@ p1 <- ggplot(data=subset(out.decimal, time<= 200)) +
         #legend.position = "bottom",
         #legend.direction = "horizontal",
         axis.text = element_text(size=14), strip.background = element_blank(),
-        strip.text = element_blank()) + coord_cartesian(ylim=c(0,1))
+        strip.text = element_blank()) + coord_cartesian(ylim=c(0,1)) + 
+  geom_hline(aes(yintercept=1), linetype=2) +
+  geom_hline(aes(yintercept=0), linetype=2)
 
 print(p1)
 
