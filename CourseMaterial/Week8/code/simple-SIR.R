@@ -931,6 +931,44 @@ ggsave(file = paste0(homewd, "/CourseMaterial/Week8/code/figs/simplestSIRphasepl
        dpi=300)
 
 
+
+params.b = list(b= 0,#births, per capita per day
+                beta = .29,#per capita infectious contacts per day for an infected individual
+                sigma = 1/14, #recovery rate, 1/duration of infection (in days). here 1/14, like measles
+                mu = .00 #natural death rate, deaths per capita, per day)
+)
+
+
+R0 = params.b$beta/params.b$sigma
+R0 
+xstart = c(S = .99, I = .01, R = 0)
+
+times = seq(1, 365*1, 1) #1 years in days
+
+out.decimal = as.data.frame(lsoda(y = xstart, times = times, func = simple.SIR, parms = params.b))
+
+
+p2b <- ggplot(data=subset(out.decimal, time<= 200)) + geom_line(aes(x=S, y=I), size=1) + theme_bw()+ #scale_color_manual(values=colz) + ylab('proportion') + theme_bw() + xlab("time") +# ylab('proportion')
+  #scale_color_gradient(low="yellow", high="red", trans="log10") + 
+  ylab("proportion infected (I)") + xlab("proportion susceptible (S)") +
+  theme(panel.grid = element_blank(), 
+        axis.title = element_text(size=18), 
+        legend.position = "inside",
+        legend.position.inside = c(.8,.85),
+        legend.direction = "horizontal",
+        axis.text = element_text(size=14), strip.background = element_blank(),
+        strip.text = element_blank()) + coord_cartesian(xlim=c(0,1), ylim=c(0,1))
+
+print(p2b)
+
+ggsave(file = paste0(homewd, "/CourseMaterial/Week8/code/figs/simplestSIRphaseplanenocol.pdf"),
+       units="mm",  
+       width=50, 
+       height=40, 
+       scale=3, 
+       dpi=300)
+
+
 #and higher R0
 
 params.b = list(b= 0,#births, per capita per day
